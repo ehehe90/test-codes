@@ -1,0 +1,11 @@
+{
+  "type": "user",
+  "name": "u_firewall",
+  "target": {
+    "file": "u_firewall"
+  },
+  "config": {
+  },
+  "data": {
+  }
+}

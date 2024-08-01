@@ -1,0 +1,55 @@
+
+hello:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000401000 <.hello.str>:
+  401000:	31 32                	xor    %esi,(%rdx)
+  401002:	33 34 35 36 37 38 0a 	xor    0xa383736(,%rsi,1),%esi
+
+0000000000401009 <_writeHello>:
+.equ WRITE, 1
+.equ EXIT, 60
+
+_writeHello:
+     # write hello world
+    movq $WRITE, %rax
+  401009:	48 c7 c0 01 00 00 00 	mov    $0x1,%rax
+    movq $STDOUT, %rdi
+  401010:	48 c7 c7 01 00 00 00 	mov    $0x1,%rdi
+    leaq .hello.str, %rsi
+  401017:	48 8d 34 25 00 10 40 	lea    0x401000,%rsi
+  40101e:	00 
+    movq $9, %rdx
+  40101f:	48 c7 c2 09 00 00 00 	mov    $0x9,%rdx
+    syscall
+  401026:	0f 05                	syscall 
+
+0000000000401028 <_exitProgram>:
+
+_exitProgram:
+    # exit
+    movq $EXIT, %rax
+  401028:	48 c7 c0 3c 00 00 00 	mov    $0x3c,%rax
+    movq $0, %rdi
+  40102f:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+    syscall
+  401036:	0f 05                	syscall 
+
+0000000000401038 <_start>:
+
+.text
+
+_start:
+    movq %rsp, %rbp
+  401038:	48 89 e5             	mov    %rsp,%rbp
+
+    call _writeHello
+  40103b:	e8 c9 ff ff ff       	callq  401009 <_writeHello>
+    call _exitProgram
+  401040:	e8 e3 ff ff ff       	callq  401028 <_exitProgram>
+    
+
+    pop %rbp
+  401045:	5d                   	pop    %rbp

@@ -1,0 +1,33 @@
+
+check3:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000401000 <_exitProgram>:
+  401000:	48 c7 c0 3c 00 00 00 	mov    $0x3c,%rax
+  401007:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  40100e:	0f 05                	syscall 
+
+0000000000401010 <_trap>:
+  401010:	48 c7 c0 3c 00 00 00 	mov    $0x3c,%rax
+  401017:	48 c7 c7 01 00 00 00 	mov    $0x1,%rdi
+  40101e:	0f 05                	syscall 
+
+0000000000401020 <_start>:
+  401020:	48 89 e5             	mov    %rsp,%rbp
+  401023:	49 c7 c4 02 00 00 00 	mov    $0x2,%r12
+  40102a:	49 c7 c5 04 00 00 00 	mov    $0x4,%r13
+  401031:	49 c7 c6 06 00 00 00 	mov    $0x6,%r14
+  401038:	49 c7 c7 08 00 00 00 	mov    $0x8,%r15
+  40103f:	48 c7 c3 07 00 00 00 	mov    $0x7,%rbx
+  401046:	4c 39 e3             	cmp    %r12,%rbx
+  401049:	7c 0f                	jl     40105a <_start+0x3a>
+  40104b:	4c 39 fb             	cmp    %r15,%rbx
+  40104e:	7f 0a                	jg     40105a <_start+0x3a>
+  401050:	4c 39 eb             	cmp    %r13,%rbx
+  401053:	7c bb                	jl     401010 <_trap>
+  401055:	4c 39 f3             	cmp    %r14,%rbx
+  401058:	7f b6                	jg     401010 <_trap>
+  40105a:	e8 a1 ff ff ff       	callq  401000 <_exitProgram>
+  40105f:	5d                   	pop    %rbp
